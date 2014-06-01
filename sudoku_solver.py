@@ -29,18 +29,18 @@ class sudoku_solver(sudoku):
         for answer in answers:
             new_3d = copy.deepcopy(self._3d)
             self.update_answer(new_3d, row, col, answer)
-            print('new, ({}, {}), answer: {}, answers: {}, loop_num: {}'.format(row, col, answer, answers, num))
+##            print('new, ({}, {}), answer: {}, answers: {}, loop_num: {}'.format(row, col, answer, answers, num))
             if _3d_map[self.total_space_loc][self.total_space_loc] == 0:
-                print('================================Done=============')
+##                print('================================Done=============')
                 self._3d_result.append(_3d_map)
                 break
             elif self.no_result(new_3d):
                 self.print_3d(new_3d)
-                print('No solution')
+##                print('No solution')
                 del new_3d
             elif self.has_same_num(new_3d):
                 self.print_3d(new_3d)
-                print('Same result')
+##                print('Same result')
                 del new_3d
             else:
                 new_loc = self.get_new_loc(new_3d) # new_loc[row][col]
@@ -60,23 +60,22 @@ class sudoku_solver(sudoku):
         num = 0
         answers = self._3d_answer(_3d_map, row, col)
         thread_list = []
-        print('thread long: {}'.format(len(self.thread_list)))
+##        print('thread long: {}'.format(len(self.thread_list)))
         for answer in answers:
             new_3d = copy.deepcopy(_3d_map)
             self.update_answer(new_3d, row, col, answer)
-            print('++++++++ ({}, {}), answer: {}, answers: {}, loop_num: {}, left: {}'.format(row, col, answer, answers, num, _3d_map[self.total_space_loc][self.total_space_loc]))
+##            print('++++++++ ({}, {}), answer: {}, answers: {}, loop_num: {}, left: {}'.format(row, col, answer, answers, num, _3d_map[self.total_space_loc][self.total_space_loc]))
             if new_3d[self.total_space_loc][self.total_space_loc] == 0 :
-                print('================================Done=============')
-                self.result_list.append(new_3d
-                                        )
+##                print('================================Done=============')
+                self.result_list.append(new_3d)
                 break
             elif self.no_result(new_3d):
                 self.print_3d(new_3d)
-                print('No solution')
+##                print('No solution')
                 del new_3d
             elif self.has_same_num(new_3d):
                 self.print_3d(new_3d)
-                print('Same result')
+##                print('Same result')
                 del new_3d
             else:
                 new_loc = self.get_new_loc(new_3d) # new_loc[row][col]
@@ -85,7 +84,7 @@ class sudoku_solver(sudoku):
                     target = self.put_num, args = (new_3d, new_loc[0], new_loc[1], thread_num + 1)))
                 thread_list[-1].start()
                 self.thread_list.append(thread_list[-1])
-            print('thread_num = {}, num = {}'.format(thread_num, num))
+##            print('thread_num = {}, num = {}'.format(thread_num, num))
             num += 1
         for thread in thread_list:
             thread.join()        
